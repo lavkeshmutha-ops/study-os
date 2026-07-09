@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  
+}
+
+model User {
+  id        String      @id @default(cuid())
+  clerkId   String      @unique
+  fullName  String
+  email     String      @unique
+  imageUrl  String?
+
+  semesters Semester[]
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Semester {
+  id        String    @id @default(cuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  isActive  Boolean   @default(false)
+
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+
+  subjects  Subject[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Subject {
+  id          String    @id @default(cuid())
+  name        String
+  code        String?
+  description String?
+  color       String?
+
+  semesterId  String
+  semester    Semester  @relation(fields: [semesterId], references: [id])
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}

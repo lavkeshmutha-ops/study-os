@@ -1,13 +1,51 @@
-export default function DashboardPage() {
-    return (
-        <div className="p-10">
-            <h1 className="text-4xl font-bold">
-                Welcome to StudyOS 🚀
-            </h1>
+import Greeting from "@/components/dashboard/Greeting";
+import StatsCard from "@/components/dashboard/StatsCard";
+import TodayTasks from "@/components/dashboard/TodayTasks";
+import UpcomingExams from "@/components/dashboard/exams/UpcomingExams";
+import QuickActions from "@/components/dashboard/actions/QuickActions";
+import { syncUser } from "@/app/actions/user";
 
-            <p className="mt-4 text-gray-600">
-                Your AI Academic Operating System
-            </p>
+import {
+    BookOpen,
+    Flame,
+    CalendarDays,
+} from "lucide-react";
+
+export default async function DashboardPage() {
+    await syncUser();
+    return (
+        <div className="max-w-7xl mx-auto space-y-10">
+            {/* Greeting */}
+            <Greeting />
+
+            {/* Stats Cards */}
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <StatsCard
+                    title="Subjects"
+                    value="6"
+                    icon={BookOpen}
+                />
+
+                <StatsCard
+                    title="Study Streak"
+                    value="14 Days"
+                    icon={Flame}
+                />
+
+                <StatsCard
+                    title="Next Exam"
+                    value="12 Days"
+                    icon={CalendarDays}
+                />
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2 items-stretch">
+                <TodayTasks />
+                <UpcomingExams />
+            </div>
+            <QuickActions />
+
+
         </div>
     );
 }

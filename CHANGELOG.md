@@ -12,3 +12,6 @@
 
 - Created missing infrastructure: env.server.ts, env.client.ts, logger.ts, errors.ts, and auth/current-user.ts.
 
+
+- Introduced feature-first architecture by migrating dashboard, subjects, and onboarding components into features/.
+

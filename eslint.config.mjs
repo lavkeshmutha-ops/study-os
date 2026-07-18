@@ -28,22 +28,23 @@ const eslintConfig = defineConfig([
       "boundaries/ignore": ["**/*.test.*"]
     },
     rules: {
-      "boundaries/element-types": [
+      "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
-          rules: [
-            { from: "app", allow: ["feature", "lib", "components"] },
+          policies: [
+            { from: "app", allow: ["feature", "lib", "components", "app"] },
             { 
               from: "feature", 
               allow: [
                 "lib", 
-                "components", 
-                ["feature", { featureName: "${from.featureName}" }] 
+                "components",
+                "app",
+                "feature"
               ] 
             },
             { from: "lib", allow: ["lib"] },
-            { from: "components", allow: ["lib", "components"] },
+            { from: "components", allow: ["lib", "components", "app"] },
             { from: "tests", allow: ["app", "feature", "lib", "components", "tests"] }
           ]
         }

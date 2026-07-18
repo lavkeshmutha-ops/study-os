@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { getSubjectById } from "@/app/actions/subject";
-import SubjectWorkspace from "@/components/subjects/SubjectWorkspace";
+import { SubjectWorkspace } from "@/features/subjects";
 
 interface SubjectPageProps {
     params: Promise<{

@@ -1,5 +1,5 @@
 import { getSubjects } from "@/app/actions/subject";
-import SubjectsClient from "@/components/subjects/SubjectsClient";
+import { SubjectsClient } from "@/features/subjects";
 
 export default async function SubjectsPage() {
     const subjects = await getSubjects();

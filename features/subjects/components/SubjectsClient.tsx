@@ -6,8 +6,10 @@ import SubjectHeader from "./SubjectHeader";
 import SubjectGrid from "./SubjectGrid";
 import AddSubjectDialog from "./dialog/AddSubjectDialog";
 
+import { Subject } from "./SubjectGrid";
+
 interface SubjectsClientProps {
-    subjects: Record<string, unknown>[];
+    subjects: Subject[];
 }
 
 export default function SubjectsClient({

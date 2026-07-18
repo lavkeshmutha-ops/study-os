@@ -1,5 +1,5 @@
 import { GraduationCap } from "lucide-react";
-import AcademicProgramForm from "@/components/onboarding/AcademicProgramForm";
+import { AcademicProgramForm } from "@/features/onboarding";
 
 export default function OnboardingPage() {
     return (

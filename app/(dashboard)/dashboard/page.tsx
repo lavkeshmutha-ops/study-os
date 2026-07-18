@@ -1,8 +1,10 @@
-import Greeting from "@/components/dashboard/Greeting";
-import StatsCard from "@/components/dashboard/StatsCard";
-import TodayTasks from "@/components/dashboard/TodayTasks";
-import UpcomingExams from "@/components/dashboard/exams/UpcomingExams";
-import QuickActions from "@/components/dashboard/actions/QuickActions";
+import {
+    Greeting,
+    StatsCard,
+    TodayTasks,
+    UpcomingExams,
+    QuickActions,
+} from "@/features/dashboard";
 import { syncUser } from "@/app/actions/user";
 
 import {

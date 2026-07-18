@@ -1,6 +1,6 @@
 import SubjectCard from "./SubjectCard";
 
-interface Subject {
+export interface Subject {
     id: string;
     name: string;
     code: string | null;

@@ -46,6 +46,8 @@ model Subject {
   instructor  String?
   isElective  Boolean  @default(false)
   semester    Semester @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  knowledgeNodes KnowledgeNode[]
+  lectures    Lecture[]
 }
 
 model AcademicProgram {
@@ -60,4 +62,53 @@ model AcademicProgram {
   updatedAt      DateTime   @updatedAt
   user           User       @relation("UserPrograms", fields: [userId], references: [id])
   semesters      Semester[]
+}
+
+enum NodeType {
+  COURSE
+  UNIT
+  CHAPTER
+  TOPIC
+  SUBTOPIC
+  CONCEPT
+}
+
+model KnowledgeNode {
+  id          String          @id @default(cuid())
+  title       String
+  slug        String
+  description String?
+  nodeType    NodeType
+  order       Int             @default(0)
+  subjectId   String
+  parentId    String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  subject     Subject         @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  parent      KnowledgeNode?  @relation("NodeHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children    KnowledgeNode[] @relation("NodeHierarchy")
+  lectures    Lecture[]
+  
+  @@unique([subjectId, slug])
+}
+
+enum LectureStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+model Lecture {
+  id              String          @id @default(cuid())
+  title           String
+  date            DateTime
+  subjectId       String
+  knowledgeNodeId String?
+  status          LectureStatus   @default(SCHEDULED)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  subject         Subject         @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  knowledgeNode   KnowledgeNode?  @relation(fields: [knowledgeNodeId], references: [id], onDelete: SetNull)
 }

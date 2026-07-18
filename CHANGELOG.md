@@ -15,3 +15,6 @@
 
 - Introduced feature-first architecture by migrating dashboard, subjects, and onboarding components into features/.
 
+
+- Configured testing infrastructure with Vitest and Playwright.
+

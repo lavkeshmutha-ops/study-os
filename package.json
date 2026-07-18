@@ -58,7 +58,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix"
+      "npm.cmd run lint -- --fix"
     ]
   }
 }

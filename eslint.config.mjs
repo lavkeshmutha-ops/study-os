@@ -33,19 +33,19 @@ const eslintConfig = defineConfig([
         {
           default: "disallow",
           policies: [
-            { from: "app", allow: ["feature", "lib", "components", "app"] },
+            { from: { element: { type: "app" } }, allow: [{ element: { type: "feature" } }, { element: { type: "lib" } }, { element: { type: "components" } }, { element: { type: "app" } }] },
             { 
-              from: "feature", 
+              from: { element: { type: "feature" } }, 
               allow: [
-                "lib", 
-                "components",
-                "app",
-                "feature"
+                { element: { type: "lib" } }, 
+                { element: { type: "components" } },
+                { element: { type: "app" } },
+                { element: { type: "feature" } }
               ] 
             },
-            { from: "lib", allow: ["lib"] },
-            { from: "components", allow: ["lib", "components", "app"] },
-            { from: "tests", allow: ["app", "feature", "lib", "components", "tests"] }
+            { from: { element: { type: "lib" } }, allow: [{ element: { type: "lib" } }] },
+            { from: { element: { type: "components" } }, allow: [{ element: { type: "lib" } }, { element: { type: "components" } }, { element: { type: "app" } }] },
+            { from: { element: { type: "tests" } }, allow: [{ element: { type: "app" } }, { element: { type: "feature" } }, { element: { type: "lib" } }, { element: { type: "components" } }, { element: { type: "tests" } }] }
           ]
         }
       ]

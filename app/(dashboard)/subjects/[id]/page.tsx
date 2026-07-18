@@ -1,3 +1,8 @@
+import { notFound } from "next/navigation";
+
+import { getSubjectById } from "@/app/actions/subject";
+import SubjectWorkspace from "@/components/subjects/SubjectWorkspace";
+
 interface SubjectPageProps {
     params: Promise<{
         id: string;
@@ -9,15 +14,15 @@ export default async function SubjectPage({
 }: SubjectPageProps) {
     const { id } = await params;
 
-    return (
-        <main className="container mx-auto px-6 py-8">
-            <h1 className="text-4xl font-bold">
-                Subject {id}
-            </h1>
+    const subject = await getSubjectById(id);
 
-            <p className="mt-2 text-muted-foreground">
-                Subject workspace coming soon.
-            </p>
-        </main>
+    if (!subject) {
+        notFound();
+    }
+
+    return (
+        <SubjectWorkspace
+            subject={subject}
+        />
     );
 }

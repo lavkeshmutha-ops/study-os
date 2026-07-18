@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface SubjectHeaderProps {
-    onAddClick: () => void;
+    onAddClick?: () => void;
 }
 
 export default function SubjectHeader({

@@ -16,7 +16,7 @@ export default function Greeting() {
             </h1>
 
             <p className="text-muted-foreground text-lg">
-                Here's your study overview today.
+                Here&apos;s your study overview today.
             </p>
         </div>
     );

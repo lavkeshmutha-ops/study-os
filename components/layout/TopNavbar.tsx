@@ -42,7 +42,6 @@ export default function TopNavbar({
                 <ThemeToggle />
 
                 <UserButton
-                    afterSignOutUrl="/sign-in"
                     appearance={{
                         elements: {
                             avatarBox: "h-10 w-10",

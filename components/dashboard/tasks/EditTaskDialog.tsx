@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
     Dialog,
@@ -27,10 +27,12 @@ export default function EditTaskDialog({
     onSave,
 }: EditTaskDialogProps) {
     const [title, setTitle] = useState(initialTitle);
+    const [prevInitial, setPrevInitial] = useState(initialTitle);
 
-    useEffect(() => {
+    if (initialTitle !== prevInitial) {
+        setPrevInitial(initialTitle);
         setTitle(initialTitle);
-    }, [initialTitle]);
+    }
 
     const handleSave = () => {
         if (!title.trim()) return;

@@ -5,8 +5,10 @@ import { prisma } from "@/lib/prisma";
 export async function getCurrentSemester(userId: string) {
     return prisma.semester.findFirst({
         where: {
-            userId,
             isActive: true,
+            program: {
+                userId,
+            },
         },
         include: {
             subjects: true,
@@ -17,7 +19,9 @@ export async function getCurrentSemester(userId: string) {
 export async function getSemesters(userId: string) {
     return prisma.semester.findMany({
         where: {
-            userId,
+            program: {
+                userId,
+            },
         },
         orderBy: {
             number: "asc",
@@ -31,7 +35,9 @@ export async function setCurrentSemester(
 ) {
     await prisma.semester.updateMany({
         where: {
-            userId,
+            program: {
+                userId,
+            },
         },
         data: {
             isActive: false,

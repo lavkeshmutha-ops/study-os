@@ -10,7 +10,7 @@ export default function EmptyTasks() {
             </h3>
 
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                You're all caught up! Add a new task or enjoy your free time.
+                You&apos;re all caught up! Add a new task or enjoy your free time.
             </p>
         </div>
     );

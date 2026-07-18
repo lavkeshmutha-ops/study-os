@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { BookOpen } from "lucide-react";
+
+import { createSubject } from "@/app/actions/subject";
 
 import {
     Dialog,
@@ -18,108 +19,144 @@ import { Label } from "@/components/ui/label";
 interface AddSubjectDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    onAddSubject: (
-        subject: string,
-        examDate?: string
-    ) => void;
 }
 
 export default function AddSubjectDialog({
     open,
     onOpenChange,
-    onAddSubject,
 }: AddSubjectDialogProps) {
-    const [subject, setSubject] = useState("");
-    const [examDate, setExamDate] = useState("");
-
-    const handleSubmit = () => {
-        if (!subject.trim()) return;
-
-        onAddSubject(
-            subject.trim(),
-            examDate || undefined
-        );
-
-        setSubject("");
-        setExamDate("");
-
-        onOpenChange(false);
-    };
-
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-
             <DialogContent className="sm:max-w-2xl rounded-2xl border bg-background p-8 shadow-2xl">
-
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-3 text-xl font-semibold">
                         <BookOpen className="h-6 w-6 text-primary" />
                         Add New Subject
                     </DialogTitle>
+
                     <p className="text-sm text-muted-foreground">
-                        Create a new subject. You can always add the syllabus and exam date later.
+                        Create a new subject. You can always edit it later.
                     </p>
                 </DialogHeader>
 
-                <div className="mt-6 space-y-6">
-
+                <form
+                    action={async (formData) => {
+                        await createSubject(formData);
+                        onOpenChange(false);
+                    }}
+                    className="mt-6 space-y-6"
+                >
                     <div>
-                        <Label className="mb-2 block text-sm font-medium">
+                        <Label htmlFor="name" className="mb-2 block">
                             Subject Name
                         </Label>
 
                         <Input
-                            className="h-12 rounded-xl"
+                            id="name"
+                            name="name"
                             placeholder="Enter subject name"
-                            value={subject}
-                            onChange={(e) =>
-                                setSubject(e.target.value)
-                            }
+                            className="h-12 rounded-xl"
+                            required
                         />
                     </div>
 
                     <div>
-                        <Label className="mb-2 block text-sm font-medium">
-                            Exam Date
-                            <span className="ml-2 text-xs text-muted-foreground">
-                                (Optional)
-                            </span>
+                        <Label htmlFor="code" className="mb-2 block">
+                            Subject Code
                         </Label>
 
                         <Input
+                            id="code"
+                            name="code"
+                            placeholder="e.g. CSE501"
                             className="h-12 rounded-xl"
-                            type="date"
-                            value={examDate}
-                            onChange={(e) =>
-                                setExamDate(e.target.value)
-                            }
                         />
-
-                        <p className="mt-2 text-xs text-muted-foreground">
-                            Optional. Add it now or update it anytime later.
-                        </p>
                     </div>
 
-                </div>
+                    <div>
+                        <Label htmlFor="description" className="mb-2 block">
+                            Description
+                        </Label>
 
-                <DialogFooter className="mt-8 flex justify-end gap-3">
-                    <Button
-                        variant="ghost"
-                        className="h-11 rounded-xl"
-                    >
-                        Cancel
-                    </Button>
+                        <Input
+                            id="description"
+                            name="description"
+                            placeholder="Optional description"
+                            className="h-12 rounded-xl"
+                        />
+                    </div>
 
-                    <Button
-                        className="h-11 rounded-xl px-6"
-                        onClick={handleSubmit}
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <Label htmlFor="credits" className="mb-2 block">
+                                Credits
+                            </Label>
 
-                    >
-                        Add Subject
-                    </Button>
+                            <Input
+                                id="credits"
+                                name="credits"
+                                type="number"
+                                className="h-12 rounded-xl"
+                            />
+                        </div>
 
-                </DialogFooter>
+                        <div>
+                            <Label htmlFor="instructor" className="mb-2 block">
+                                Instructor
+                            </Label>
 
+                            <Input
+                                id="instructor"
+                                name="instructor"
+                                placeholder="Faculty name"
+                                className="h-12 rounded-xl"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <Label htmlFor="color" className="mb-2 block">
+                            Subject Color
+                        </Label>
+
+                        <Input
+                            id="color"
+                            name="color"
+                            type="color"
+                            className="h-12 rounded-xl"
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <input
+                            id="isElective"
+                            name="isElective"
+                            type="checkbox"
+                        />
+
+                        <Label htmlFor="isElective">
+                            Elective Subject
+                        </Label>
+                    </div>
+
+                    <DialogFooter className="mt-8 flex justify-end gap-3">
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            className="h-11 rounded-xl"
+                            onClick={() => onOpenChange(false)}
+                        >
+                            Cancel
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            className="h-11 rounded-xl px-6"
+                        >
+                            Add Subject
+                        </Button>
+                    </DialogFooter>
+                </form>
             </DialogContent>
         </Dialog>
     );

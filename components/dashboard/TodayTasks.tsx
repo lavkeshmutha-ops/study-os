@@ -33,15 +33,15 @@ const defaultTasks: Task[] = [
 
 export default function TodayTasks() {
 
-    const [tasks, setTasks] = useState<Task[]>(defaultTasks);
-
-    useEffect(() => {
-        const savedTasks = localStorage.getItem("tasks");
-
-        if (savedTasks) {
-            setTasks(JSON.parse(savedTasks));
+    const [tasks, setTasks] = useState<Task[]>(() => {
+        if (typeof window !== "undefined") {
+            const savedTasks = localStorage.getItem("tasks");
+            if (savedTasks) {
+                return JSON.parse(savedTasks);
+            }
         }
-    }, []);
+        return defaultTasks;
+    });
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -105,11 +105,11 @@ export default function TodayTasks() {
             <div className="mb-6 flex items-start justify-between">
                 <div>
                     <h2 className="text-xl font-semibold">
-                        Today's Tasks
+                        Today&apos;s Tasks
                     </h2>
 
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Stay focused. Finish today's priorities.
+                        Stay focused. Finish today&apos;s priorities.
                     </p>
                 </div>
 

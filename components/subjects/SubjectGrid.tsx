@@ -1,5 +1,11 @@
 import SubjectCard from "./SubjectCard";
-import { Subject } from "@/lib/defaultSubjects";
+
+interface Subject {
+    id: string;
+    name: string;
+    code: string | null;
+    color: string | null;
+}
 
 interface SubjectGridProps {
     subjects: Subject[];
@@ -15,11 +21,8 @@ export default function SubjectGrid({
                     key={subject.id}
                     id={subject.id}
                     name={subject.name}
-                    progress={0}
-                    completedTopics={subject.completedTopics}
-                    totalTopics={subject.totalTopics}
-                    nextRevision="Not Scheduled"
-                    examDate={subject.examDate ?? "Not Set"}
+                    code={subject.code}
+                    color={subject.color}
                 />
             ))}
         </div>
